@@ -48,7 +48,7 @@ Invoke-WebRequest -Uri $visCplusURL -OutFile $outputPath
 write-host 'AIB Customization: Starting Install the latest O365 Deployment Tool'
 & $outputPath /extract:$LocalPath /quiet
 new-item -Path $LocalPath -ItemType File -Name $($appName+".xml") -Value $o365config
-Start-Process -FilePath setup.exe -Args "/download $($appName+".xml")" -Wait
-Start-Process -FilePath setup.exe -Args "/configure $($appName+".xml")" -Wait
+Start-Process -FilePath setup.exe -Args "/download O365.xml" -Wait
+Start-Process -FilePath setup.exe -Args "/configure O365.xml" -Wait
 write-host 'AIB Customization: Finished Install the latest O365 Version'
 

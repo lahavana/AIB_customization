@@ -26,15 +26,18 @@ foreach ($iso in $isos.name)
         
         if (Test-Path $($driveLetter+":\x64\langpacks"))
             {
+            write-host "$($driveLetter+":\x64\langpacks") exists"
             Copy-Item $($driveLetter+":\x64\langpacks\*") -Destination $($LocalPath+"\language") -Recurse
             Copy-Item $($driveLetter+":\LocalExperiencePack\*") -Destination $($LocalPath+"\language") -Recurse
             }
         if (Test-Path $($driveLetter+":\metadata"))
             {
+            write-host "$($driveLetter+":\metadata") exists"
             Copy-Item $driveLetter -Destination $($LocalPath+"\language\*") -Recurse
             }
         if (Test-Path $($driveLetter+":\amd64fre"))
             {
+            write-host "$($driveLetter+":\amd64fre") exists"
             Copy-Item $($driveLetter+":\amd64fre\*") -Destination $($LocalPath+"\language") -Recurse
             }
     }
@@ -42,4 +45,3 @@ foreach ($iso in $isos.name)
 
 
 write-host 'AIB Customization: Finished OS Optimizations script'
-

@@ -8,7 +8,7 @@
  $LocalPath = $drive + '\' + $appName 
  set-Location $LocalPath
  #$osOptURL = 'https://github.com/The-Virtual-Desktop-Team/Virtual-Desktop-Optimization-Tool/archive/master.zip'
- $osOptURL = 'https://github.com/lahavana/AIB_customization/blob/5d9be9aa175f041f547654aeff35676780e8dceb/customized-20210519-0148.zip'
+ $osOptURL = 'https://github.com/lahavana/AIB_customization/raw/main/customized-20210519-0148.zip'
  $osOptURLexe = 'Windows_10_VDI_Optimize-master.zip'
  $outputPath = $LocalPath + '\' + $osOptURLexe
  Invoke-WebRequest -Uri $osOptURL -OutFile $outputPath

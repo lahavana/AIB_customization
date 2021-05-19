@@ -33,7 +33,7 @@ foreach ($iso in $isos.name)
         if (Test-Path $($driveLetter+":\metadata"))
             {
             write-host "$($driveLetter+":\metadata") exists"
-            Copy-Item $($driveLetter+"\*") -Destination $($LocalPath+"\language") -Recurse
+            Copy-Item $($driveLetter+":\*") -Destination $($LocalPath+"\language") -Recurse
             }
         if (Test-Path $($driveLetter+":\amd64fre"))
             {

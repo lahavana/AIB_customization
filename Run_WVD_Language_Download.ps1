@@ -2,7 +2,7 @@
 
 
  # OS Optimizations for WVD
- write-host 'AIB Customization: Download and iInstall additional languages'
+ write-host 'AIB Customization: Download additional languages'
  $appName = 'optimize'
  $drive = 'C:'
  New-Item -Path $drive -Name $appName -ItemType Directory -ErrorAction SilentlyContinue
@@ -44,4 +44,4 @@ foreach ($iso in $isos.name)
 
 
 
-write-host 'AIB Customization: Finished Download and iInstall additional languages script'
+write-host 'AIB Customization: Finished download languages script'

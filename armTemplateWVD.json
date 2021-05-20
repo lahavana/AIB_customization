@@ -37,11 +37,11 @@
                     },
         
         "properties": {
-            "buildTimeoutInMinutes" : 120,
+            "buildTimeoutInMinutes" : 180,
 
             "vmProfile": 
                     {
-                    "vmSize": "Standard_D2_v2",
+                    "vmSize": "Standard_B2s",
                     "osDiskSizeGB": 127
                     },
         
@@ -49,19 +49,11 @@
                 "type": "PlatformImage",
                     "publisher": "MicrosoftWindowsDesktop",
                     "offer": "windows-10",
-                    "sku": "20h1-ent",
+                    "sku": "20h2-evd",
                     "version": "latest"
             },
             "customize": [
 
-        
-                    {
-                        "type": "PowerShell",
-                        "name": "installFsLogix",
-                        "runElevated": true,
-                        "runAsSystem": true,
-                        "scriptUri": "https://raw.githubusercontent.com/danielsollondon/azvmimagebuilder/master/solutions/14_Building_Images_WVD/0_installConfFsLogix.ps1"
-                    },
                     {
                         "type": "PowerShell",
                         "name": "OptimizeOS",
@@ -70,23 +62,67 @@
                         "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Optimization.ps1"
                     },
                     {
+                        "type": "PowerShell",
+                        "name": "Additional customizations",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_System_Optimization.ps1"
+                    },
+                    {
                         "type": "WindowsRestart",
-                        "restartCheckCommand": "write-host 'restarting post Optimizations'",
+                        "restartCheckCommand": "write-host 'restarting post Customizations'",
                         "restartTimeout": "5m"
+                    },                
+                    {
+                        "type": "PowerShell",
+                        "name": "Download Languges",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Language_Download.ps1"
                     },
                     {
                         "type": "PowerShell",
-                        "name": "Install Teams",
+                        "name": "Install Languges",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Language_Installer.ps1"
+                    },
+                    {
+                        "type": "PowerShell",
+                        "name": "Install Languges InboxApps",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Language_Update_InboxApps.ps1"
+                    },
+                    {
+                        "type": "WindowsRestart",
+                        "restartCheckCommand": "write-host 'restarting post Language Installation'",
+                        "restartTimeout": "5m"
+                    },                
+                    {
+                        "type": "PowerShell",
+                        "name": "Install O365",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_O365_Installer.ps1"
+                    },
+                    {
+                        "type": "WindowsRestart",
+                        "restartCheckCommand": "write-host 'restarting post O365 Install'",
+                        "restartTimeout": "5m"
+                    },                
+                    {
+                        "type": "PowerShell",
+                        "name": "Install Teams and Onedrive",
                         "runElevated": true,
                         "runAsSystem": true,
                         "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Teams_Installer.ps1"
                     },
                     {
                         "type": "WindowsRestart",
-                        "restartCheckCommand": "write-host 'restarting post Teams Install'",
+                        "restartCheckCommand": "write-host 'restarting post Teams and Onedrive Install'",
                         "restartTimeout": "5m"
-                    },
-                        
+                    },    
                     {
                         "type": "WindowsUpdate",
                         "searchCriteria": "IsInstalled=0",

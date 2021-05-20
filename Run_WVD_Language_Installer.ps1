@@ -13,6 +13,7 @@ Disable-ScheduledTask -TaskPath "\Microsoft\Windows\AppxDeploymentClient\" -Task
 [string]$LIPContent = $($LocalPath+"\language")
 
 ##German##
+write-host 'German'
 Add-AppProvisionedPackage -Online -PackagePath $LIPContent\de-de\LanguageExperiencePack.de-de.Neutral.appx -LicensePath $LIPContent\de-de\License.xml
 Add-WindowsPackage -Online -PackagePath $LIPContent\Microsoft-Windows-Client-Language-Pack_x64_de-de.cab
 Add-WindowsPackage -Online -PackagePath $LIPContent\Microsoft-Windows-LanguageFeatures-Basic-de-de-Package~31bf3856ad364e35~amd64~~.cab
@@ -33,6 +34,7 @@ $LanguageList.Add("de-de")
 Set-WinUserLanguageList $LanguageList -force
 
 ##Italian##
+write-host 'Italian'
 Add-AppProvisionedPackage -Online -PackagePath $LIPContent\it-it\LanguageExperiencePack.it-it.Neutral.appx -LicensePath $LIPContent\it-it\License.xml
 Add-WindowsPackage -Online -PackagePath $LIPContent\Microsoft-Windows-Client-Language-Pack_x64_it-it.cab
 Add-WindowsPackage -Online -PackagePath $LIPContent\Microsoft-Windows-LanguageFeatures-Basic-it-it-Package~31bf3856ad364e35~amd64~~.cab
@@ -52,4 +54,4 @@ $LanguageList = Get-WinUserLanguageList
 $LanguageList.Add("it-it")
 Set-WinUserLanguageList $LanguageList -force
 
-write-host 'AIB Customization: Language installation for WVD'
+write-host 'AIB Customization: Finished Language installation for WVD'

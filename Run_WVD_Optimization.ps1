@@ -51,7 +51,9 @@ Default = "All",
  # .\optimize -WindowsVersion 2004 -Verbose
  # .\Win10_VirtualDesktop_Optimize.ps1 -WindowsVersion 2004 -Verbose
     .\Win10_VirtualDesktop_Optimize.ps1 -Verbose -Optimizations 'WindowsMediaPlayer','AppxPackages','ScheduledTasks','DefaultUserSettings','Autologgers','Services','NetworkOptimizations','LGPO'
-  write-host "WARNING - Last Error Code $lasterrorcode"
+  write-host "WARNING - Last Error Code $LastExitCode"
+  $LastExitCode = 0
+  write-host "Info - Set Error Code to $LastExitCode"
   write-host 'AIB Customization: Finished OS Optimizations script'
 
 

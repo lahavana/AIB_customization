@@ -59,6 +59,7 @@
                         "name": "OptimizeOS",
                         "runElevated": true,
                         "runAsSystem": true,
+                        "validExitCodes": "0","1", 
                         "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Optimization.ps1"
                     },
                     {

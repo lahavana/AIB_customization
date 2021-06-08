@@ -78,7 +78,7 @@
                         "type": "PowerShell",
                         "name": "Download Languages",
                         "runElevated": true,
-                        "runAsSystem": false,
+                        "runAsSystem": true,
                         "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Language_Download.ps1"
                     },
                     {

@@ -11,6 +11,7 @@
  set-Location $LocalPath
  write-host "The current path is $LocalPath"
 
+<#
 write-host "Start 1st download"
 Invoke-WebRequest -Uri "https://software-download.microsoft.com/download/pr/19041.1.191206-1406.vb_release_CLIENTLANGPACKDVD_OEM_MULTI.iso" -OutFile "01_LANGUAGEPACK.iso"
 write-host "Finished 1st download"
@@ -19,6 +20,17 @@ Invoke-WebRequest -Uri "https://software-download.microsoft.com/download/pr/1904
 write-host "Finished 2nd download"
 write-host "Start 3rd download"
 Invoke-WebRequest -Uri "https://software-download.microsoft.com/download/pr/19041.508.200905-1327.vb_release_svc_prod1_amd64fre_InboxApps.iso" -OutFile "03_InboxApps.iso"
+write-host "Finished 3rd download"
+#>
+
+write-host "Start 1st download"
+Invoke-WebRequest -Uri "https://sawvdautimation.blob.core.windows.net/wvdoptimization/01_LANGUAGEPACK.iso" -OutFile "01_LANGUAGEPACK.iso"
+write-host "Finished 1st download"
+write-host "Start 2nd download"
+Invoke-WebRequest -Uri "https://sawvdautimation.blob.core.windows.net/wvdoptimization/02_FODPACK.iso" -OutFile "02_FODPACK.iso"
+write-host "Finished 2nd download"
+write-host "Start 3rd download"
+Invoke-WebRequest -Uri "https://sawvdautimation.blob.core.windows.net/wvdoptimization/03_InboxApps.iso" -OutFile "03_InboxApps.iso"
 write-host "Finished 3rd download"
 
 $isos = Get-Childitem -Path $LocalPath -Include *.iso -Recurse

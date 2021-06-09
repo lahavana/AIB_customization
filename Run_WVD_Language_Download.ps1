@@ -13,12 +13,15 @@
 
 
 write-host "Start 1st download Azure"
+get-date
 Invoke-WebRequest -Uri "https://sawvdautimation.blob.core.windows.net/wvdoptimization/01_LANGUAGEPACK.iso" -OutFile "01_LANGUAGEPACK.iso"
 write-host "Finished 1st download Azure"
 write-host "Start 2nd download Azure"
+get-date
 Invoke-WebRequest -Uri "https://sawvdautimation.blob.core.windows.net/wvdoptimization/02_FODPACK.iso" -OutFile "02_FODPACK.iso"
 write-host "Finished 2nd download Azure"
 write-host "Start 3rd download Azure"
+get-date
 Invoke-WebRequest -Uri "https://sawvdautimation.blob.core.windows.net/wvdoptimization/03_InboxApps.iso" -OutFile "03_InboxApps.iso"
 write-host "Finished 3rd download Azure"
 

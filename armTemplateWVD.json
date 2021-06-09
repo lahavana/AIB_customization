@@ -60,7 +60,7 @@
                         "runElevated": true,
                         "runAsSystem": true,
                         "validExitCodes": "1", 
-                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Optimization.ps1"
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/RUN_WVD_Citrix_Optimizer.ps1"
                     },
                     {
                         "type": "PowerShell",

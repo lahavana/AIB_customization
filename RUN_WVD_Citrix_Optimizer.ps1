@@ -2,7 +2,7 @@
  #Change the $osOptURL to your own created in the script "Create_WVD_Optimization
  #Copy to C:\optimize
  write-host 'AIB Customization: OS Optimizations for WVD'
- $appName = 'optimize3'
+ $appName = 'optimize'
  $drive = 'C:\'
  New-Item -Path $drive -Name $appName  -ItemType Directory -ErrorAction SilentlyContinue
  $LocalPath = $drive + '\' + $appName 

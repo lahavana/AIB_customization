@@ -1,0 +1,159 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "imageTemplateName": {
+        "type": "string"
+        },
+        "api-version": {
+          "type": "string"
+        },
+        "svclocation": {
+            "type": "string"
+        }
+    },
+    
+    "variables": {
+    },
+
+
+    "resources": [
+      {
+        "name": "[parameters('imageTemplateName')]",
+        "type": "Microsoft.VirtualMachineImages/imageTemplates",
+        "apiVersion": "[parameters('api-version')]",
+        "location": "[parameters('svclocation')]",
+        "dependsOn": [],
+        "tags": {
+            "imagebuilderTemplate": "AzureImageBuilderSIG",
+            "userIdentity": "enabled"
+                },
+            "identity": {
+                "type": "UserAssigned",
+                        "userAssignedIdentities": {
+                        "<imgBuilderId>": {}
+                            
+                    }
+                    },
+        
+        "properties": {
+            "buildTimeoutInMinutes" : 180,
+
+            "vmProfile": 
+                    {
+                    "vmSize": "Standard_B4ms",
+                    "osDiskSizeGB": 127
+                    },
+        
+            "source": {
+                "type": "PlatformImage",
+                    "publisher": "MicrosoftWindowsDesktop",
+                    "offer": "windows-10",
+                    "sku": "20h2-evd",
+                    "version": "latest"
+            },
+            "customize": [
+
+                    {
+                        "type": "PowerShell",
+                        "name": "OptimizeOS",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "validExitCodes": "1", 
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/RUN_WVD_Citrix_Optimizer.ps1"
+                    },
+                    {
+                        "type": "PowerShell",
+                        "name": "Additional customizations",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_System_Optimization.ps1"
+                    },
+                    {
+                        "type": "WindowsRestart",
+                        "restartCheckCommand": "write-host 'restarting post Customizations'",
+                        "restartTimeout": "5m"
+                    },                
+                    {
+                        "type": "PowerShell",
+                        "name": "Download Languages",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Language_Download.ps1"
+                    },
+                    {
+                        "type": "PowerShell",
+                        "name": "Install Languges",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Language_Installer.ps1"
+                    },
+                    {
+                        "type": "PowerShell",
+                        "name": "Install Languges InboxApps",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Language_Update_InboxApps.ps1"
+                    },
+                    {
+                        "type": "WindowsRestart",
+                        "restartCheckCommand": "write-host 'restarting post Language Installation'",
+                        "restartTimeout": "5m"
+                    },                
+                    {
+                        "type": "PowerShell",
+                        "name": "Install O365",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_O365_Installer.ps1"
+                    },
+                    {
+                        "type": "WindowsRestart",
+                        "restartCheckCommand": "write-host 'restarting post O365 Install'",
+                        "restartTimeout": "5m"
+                    },                
+                    {
+                        "type": "PowerShell",
+                        "name": "Install Teams and Onedrive",
+                        "runElevated": true,
+                        "runAsSystem": true,
+                        "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_Teams_Installer.ps1"
+                    },
+                    {
+                        "type": "WindowsRestart",
+                        "restartCheckCommand": "write-host 'restarting post Teams and Onedrive Install'",
+                        "restartTimeout": "5m"
+                    },    
+                    {
+                        "type": "WindowsUpdate",
+                        "searchCriteria": "IsInstalled=0",
+                        "filters": [
+                            "exclude:$_.Title -like '*Preview*'",
+                            "include:$true"
+                                    ],
+                        "updateLimit": 40
+                    }
+
+            ],
+            "distribute": 
+            [
+                {   
+                    "type": "SharedImage",
+                    "galleryImageId": "/subscriptions/<subscriptionID>/resourceGroups/<rgName>/providers/Microsoft.Compute/galleries/<sharedImageGalName>/images/<imageDefName>",
+                    "runOutputName": "<runOutputName>",
+                    "artifactTags": {
+                        "source": "wvd10",
+                        "baseosimg": "windows10"
+                    },
+                    "replicationRegions": [
+                      "<region1>"
+
+                    ]
+                }
+            ]
+            }
+        }
+
+    
+    ]
+}    

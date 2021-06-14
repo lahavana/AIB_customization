@@ -11,7 +11,7 @@
  set-Location $LocalPath
  write-host "The current path is $LocalPath"
 
-
+<#
 write-host "Start 1st download Azure"
 get-date
 Invoke-WebRequest -Uri "https://sawvdautimation.blob.core.windows.net/wvdoptimization/01_LANGUAGEPACK.iso" -OutFile "01_LANGUAGEPACK.iso"
@@ -24,6 +24,11 @@ write-host "Start 3rd download Azure"
 get-date
 Invoke-WebRequest -Uri "https://sawvdautimation.blob.core.windows.net/wvdoptimization/03_InboxApps.iso" -OutFile "03_InboxApps.iso"
 write-host "Finished 3rd download Azure"
+#>
+
+write-host "Start download of language packs from Azure Blob"
+Start-BitsTransfer -Source "https://sawvdautimation.blob.core.windows.net/wvdoptimization/01_LANGUAGEPACK.iso", "https://sawvdautimation.blob.core.windows.net/wvdoptimization/02_FODPACK.iso",  "https://sawvdautimation.blob.core.windows.net/wvdoptimization/03_InboxApps.iso" -Destination "01_LANGUAGEPACK.iso", "02_FODPACK.iso", "03_InboxApps.iso"
+Get-BitsTransfer
 
 $isos = Get-Childitem -Path $LocalPath -Include *.iso -Recurse
 

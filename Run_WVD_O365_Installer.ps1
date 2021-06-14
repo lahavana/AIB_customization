@@ -33,7 +33,6 @@ $o365config =
 </Configuration>
 '
 
-
 # install O365
 write-host 'AIB Customization: Install the latest O365 Version'
 $appName = 'O365'
@@ -44,11 +43,23 @@ set-Location $LocalPath
 $visCplusURL = 'https://download.microsoft.com/download/2/7/A/27AF1BE6-DD20-4CB4-B154-EBAB8A7D4A7E/officedeploymenttool_13929-20296.exe'
 $visCplusURLexe = 'o365customization.exe'
 $outputPath = $LocalPath + '\' + $visCplusURLexe
+write-host 'AIB Customization: Starting Download of the latest O365 Deployment Tool'
 Invoke-WebRequest -Uri $visCplusURL -OutFile $outputPath
-write-host 'AIB Customization: Starting Install the latest O365 Deployment Tool'
-& $outputPath /extract:$LocalPath /quiet
-new-item -Path $LocalPath -ItemType File -Name $($appName+".xml") -Value $o365config
-Start-Process -FilePath setup.exe -Args "/download O365.xml" -Wait
-Start-Process -FilePath setup.exe -Args "/configure O365.xml" -Wait
-write-host 'AIB Customization: Finished Install the latest O365 Version'
+Start-Sleep 10
+write-host 'AIB Customization: Download of the O365 Deployment Tool finished'
+#Expand-Archive $outputPath -DestinationPath $LocalPath
+write-host 'AIB Customization: Extracting O365 Deployment Tool'
+Start-Process -FilePath $outputPath -ArgumentList "/extract:$LocalPath /quiet"
+write-host 'AIB Customization: Extracting of the O365 Deployment Tool finished'
 
+new-item -Path $LocalPath -ItemType File -Name $($appName+".xml") -Value $o365config
+Start-Sleep 10
+write-host 'AIB Customization: Download of the O365 Sources'
+Start-Process -FilePath setup.exe -Args "/download O365.xml /quiet" -Wait
+Start-Sleep 10
+write-host 'AIB Customization: Download of the O365 Sources finished'
+write-host 'AIB Customization: Installing O365'
+Start-Process -FilePath setup.exe -Args "/configure O365.xml /quiet" -Wait
+write-host 'AIB Customization: Installing O365 finished'
+
+write-host 'AIB Customization: Finished Install the latest O365 Version'

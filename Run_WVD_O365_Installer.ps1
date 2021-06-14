@@ -55,11 +55,13 @@ write-host 'AIB Customization: Extracting of the O365 Deployment Tool finished'
 new-item -Path $LocalPath -ItemType File -Name $($appName+".xml") -Value $o365config
 Start-Sleep 10
 write-host 'AIB Customization: Download of the O365 Sources'
-Start-Process -FilePath setup.exe -Args "/download O365.xml /quiet" -Wait
+Start-Process -FilePath setup.exe -Args "/download O365.xml" -Wait
+write-host 'Test-Path ".\Office\Data"'
+Test-Path ".\Office\Data"
 Start-Sleep 10
 write-host 'AIB Customization: Download of the O365 Sources finished'
 write-host 'AIB Customization: Installing O365'
-Start-Process -FilePath setup.exe -Args "/configure O365.xml /quiet" -Wait
+Start-Process -FilePath setup.exe -Args "/configure O365.xml" -Wait
 write-host 'AIB Customization: Installing O365 finished'
 
 write-host 'AIB Customization: Finished Install the latest O365 Version'

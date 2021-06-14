@@ -132,7 +132,12 @@
                             "include:$true"
                                     ],
                         "updateLimit": 40
-                    }
+                    },
+                    {
+                        "type": "WindowsRestart",
+                        "restartCheckCommand": "write-host 'restarting post Customizations'",
+                        "restartTimeout": "5m"
+                    }               
 
             ],
             "distribute": 

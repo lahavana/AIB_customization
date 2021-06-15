@@ -107,6 +107,12 @@
                         "runAsSystem": true,
                         "scriptUri": "https://raw.githubusercontent.com/lahavana/AIB_customization/main/Run_WVD_O365_Installer.ps1"
                     },
+                    { 
+                         "type": "PowerShell", 
+                         "name": "SLEEP", 
+                         "inline": "start-sleep 120", 
+                         "runElevated": "true" 
+                    }, 
                     {
                         "type": "WindowsRestart",
                         "restartCheckCommand": "write-host 'restarting post O365 Install'",
@@ -133,12 +139,35 @@
                                     ],
                         "updateLimit": 40
                     },
+                    { 
+                         "type": "PowerShell", 
+                         "name": "SLEEP", 
+                         "inline": "start-sleep 180", 
+                         "runElevated": "true" 
+                    }, 
                     {
                         "type": "WindowsRestart",
-                        "restartCheckCommand": "write-host 'restarting post Customizations'",
+                        "restartCommand": "shutdown /r /f /t 60", 
+                        "restartCheckCommand": "write-host 'restarting post Customizations - First Time'",
                         "restartTimeout": "5m"
-                    }               
-
+                    },
+                    { 
+                         "type": "PowerShell", 
+                         "name": "SLEEP", 
+                         "inline": "start-sleep 180", 
+                         "runElevated": "true" 
+                    }, 
+                    {
+                        "type": "WindowsRestart",
+                        "restartCheckCommand": "write-host 'restarting post Customizations - Second Time'",
+                        "restartTimeout": "5m"
+                    },
+                    { 
+                         "type": "PowerShell", 
+                         "name": "SLEEP", 
+                         "inline": "start-sleep 120", 
+                         "runElevated": "true" 
+                    }
             ],
             "distribute": 
             [

@@ -45,7 +45,7 @@
  
  # install Onedrive
  write-host 'AIB Customization: Install MS Onedrive'
- $OnedriveURL = 'https://go.microsoft.com/fwlink/p/?LinkID=844652&clcid=0x409&culture=en-us&country=US'
+ $OnedriveURL = 'https://go.microsoft.com/fwlink/?linkid=844652'
  $OnedriveExe = 'OneDriveSetup.exe'
  $outputPath = $LocalPath + '\' + $OnedriveExe
  Invoke-WebRequest -Uri $OnedriveURL -OutFile $outputPath
